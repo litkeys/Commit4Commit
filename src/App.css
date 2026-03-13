@@ -1,0 +1,214 @@
+:root {
+  color-scheme: dark;
+  font-family: 'Segoe UI', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --context-menu-x: 0px;
+  --context-menu-y: 0px;
+}
+
+:root[data-theme='dark'] {
+  --bg-editor: #1e1e1e;
+  --bg-sidebar: #252526;
+  --bg-activity: #333333;
+  --bg-tab-active: #1e1e1e;
+  --bg-tab-inactive: #2d2d2d;
+  --bg-panel: #1e1e1e;
+  --bg-statusbar: #007acc;
+  --text-primary: #cccccc;
+  --text-muted: #858585;
+  --text-accent: #569cd6;
+  --border-color: #3c3c3c;
+  --accent: #007acc;
+  --shadow-overlay: rgba(0, 0, 0, 0.42);
+  --success: #31c48d;
+  --warning: #f4c152;
+  --danger: #ff6b81;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg-editor: #ffffff;
+  --bg-sidebar: #f3f3f3;
+  --bg-activity: #2c2c2c;
+  --bg-tab-active: #ffffff;
+  --bg-tab-inactive: #ececec;
+  --bg-panel: #f3f3f3;
+  --bg-statusbar: #007acc;
+  --text-primary: #333333;
+  --text-muted: #717171;
+  --text-accent: #0000ff;
+  --border-color: #e0e0e0;
+  --accent: #007acc;
+  --shadow-overlay: rgba(15, 23, 42, 0.18);
+  --success: #1f9d68;
+  --warning: #b7791f;
+  --danger: #c53030;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-width: 1024px;
+  height: 100%;
+  background: var(--bg-editor);
+  color: var(--text-primary);
+}
+
+body {
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 22px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-shell__main {
+  min-width: 0;
+  min-height: 0;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 24%),
+    var(--bg-editor);
+}
+
+.app-shell__horizontal-group,
+.app-shell__vertical-group {
+  width: 100%;
+  height: 100%;
+}
+
+.app-shell__sidebar-panel,
+.app-shell__workspace-panel,
+.app-shell__editor-panel,
+.app-shell__bottom-panel {
+  min-width: 0;
+  min-height: 0;
+  transition: flex-basis 150ms ease, width 150ms ease, height 150ms ease;
+}
+
+.app-shell__sidebar-panel {
+  min-width: 150px;
+  max-width: 400px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-rows: 40px 31px minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 8%, transparent), transparent 22%),
+    var(--bg-editor);
+}
+
+.resize-handle {
+  position: relative;
+  background: transparent;
+  transition: background 120ms ease;
+}
+
+.resize-handle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 120ms ease, background 120ms ease;
+}
+
+.resize-handle:hover::after,
+.resize-handle[data-resize-handle-active='pointer']::after,
+.resize-handle[data-resize-handle-state='drag']::after {
+  opacity: 1;
+  background: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.resize-handle--vertical {
+  width: 1px;
+  cursor: col-resize;
+}
+
+.resize-handle--horizontal {
+  height: 1px;
+  cursor: row-resize;
+}
+
+.resize-handle--hidden {
+  display: none;
+}
+
+.panel-surface {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  border-color: var(--border-color);
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 32px;
+}
+
+.editor-skeleton {
+  display: grid;
+  gap: 14px;
+  width: min(720px, 100%);
+}
+
+.editor-skeleton__line {
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--border-color) 55%, transparent),
+    color-mix(in srgb, var(--text-muted) 28%, transparent),
+    color-mix(in srgb, var(--border-color) 55%, transparent)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.1s linear infinite;
+}
+
+.editor-skeleton__line--long {
+  width: 100%;
+}
+
+.editor-skeleton__line--medium {
+  width: 74%;
+}
+
+.editor-skeleton__line--short {
+  width: 52%;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}

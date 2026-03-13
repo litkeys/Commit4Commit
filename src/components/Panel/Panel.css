@@ -1,0 +1,258 @@
+.panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+}
+
+.panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.panel__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panel__tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.panel__tab {
+  position: relative;
+  padding: 10px 8px 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+
+.panel__tab::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: transparent;
+}
+
+.panel__tab:hover,
+.panel__tab:focus-visible {
+  color: var(--text-primary);
+  outline: none;
+}
+
+.panel__tab--active {
+  color: var(--text-primary);
+}
+
+.panel__tab--active::after {
+  background: var(--accent);
+}
+
+.panel__toggle {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.panel__toggle:hover,
+.panel__toggle:focus-visible {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.panel__summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel__summary-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.panel__summary-item--warning {
+  color: #f4c152;
+}
+
+.panel__body {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel__output {
+  height: 100%;
+  overflow: auto;
+}
+
+.panel__output-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panel__output-stream {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  overflow: auto;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  line-height: 1.65;
+}
+
+.panel__output-line--command {
+  color: var(--text-accent);
+}
+
+.panel__output-line--success {
+  color: #31c48d;
+}
+
+.panel__output-line--file {
+  color: var(--text-primary);
+}
+
+.panel__output-line--info {
+  color: var(--text-muted);
+}
+
+.panel__problems {
+  height: 100%;
+  overflow: auto;
+}
+
+.panel__problems table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.panel__problems th,
+.panel__problems td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.panel__problems tbody tr {
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.panel__problems tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.panel__problems thead {
+  position: sticky;
+  top: 0;
+  background: color-mix(in srgb, var(--bg-panel) 96%, transparent);
+}
+
+.panel__severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #f4c152;
+}
+
+.terminal {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+}
+
+.terminal__history {
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 16px 8px;
+}
+
+.terminal__entry {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 8px;
+  animation: terminal-line-in 80ms ease;
+}
+
+.terminal__entry--command {
+  gap: 4px;
+}
+
+.terminal__prompt {
+  color: #8cc265;
+}
+
+.terminal__lines {
+  display: grid;
+  gap: 2px;
+}
+
+.terminal__line {
+  min-height: 20px;
+  white-space: pre-wrap;
+}
+
+.terminal__form {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px 16px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal__input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+}
+
+.terminal__input:focus {
+  outline: none;
+}
+
+@keyframes terminal-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

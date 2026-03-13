@@ -1,0 +1,83 @@
+.activity-bar {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 22%),
+    var(--bg-activity);
+  border-right: 1px solid var(--border-color);
+}
+
+.activity-bar__brand {
+  display: grid;
+  place-items: center;
+  height: 48px;
+}
+
+.activity-bar__brand-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 80%, #4ec9b0), color-mix(in srgb, #4ec9b0 65%, transparent));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: rotate(10deg);
+}
+
+.activity-bar__section {
+  display: grid;
+  align-content: start;
+}
+
+.activity-bar__section--bottom {
+  padding-bottom: 6px;
+}
+
+.activity-bar__button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--text-muted);
+  transition: color 120ms ease, background 120ms ease;
+  cursor: pointer;
+}
+
+.activity-bar__button::before {
+  content: '';
+  position: absolute;
+  inset: 10px auto 10px 0;
+  width: 2px;
+  background: transparent;
+  transition: background 120ms ease;
+}
+
+.activity-bar__button:hover,
+.activity-bar__button:focus-visible {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  outline: none;
+}
+
+.activity-bar__button--active {
+  color: var(--text-primary);
+}
+
+.activity-bar__button--active::before {
+  background: var(--accent);
+}
+
+.activity-bar__badge {
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  min-width: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}

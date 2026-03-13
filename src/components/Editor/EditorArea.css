@@ -1,0 +1,205 @@
+.editor-area {
+  min-width: 0;
+  min-height: 0;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 28%),
+    var(--bg-editor);
+}
+
+.editor-area :where(.monaco-editor, .monaco-editor-background, .margin) {
+  background: var(--bg-editor);
+}
+
+.editor-area--welcome {
+  display: grid;
+  place-items: center;
+}
+
+.editor-area__welcome {
+  display: grid;
+  gap: 22px;
+  width: min(940px, 100%);
+}
+
+.editor-area__welcome-logo {
+  width: 92px;
+  height: 92px;
+  fill: color-mix(in srgb, var(--accent) 72%, #4ec9b0);
+}
+
+.editor-area__welcome-copy {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+}
+
+.editor-area__welcome-copy h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.editor-area__welcome-copy p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.editor-area__welcome-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+}
+
+.editor-area__welcome-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.editor-area__welcome-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 48%),
+    color-mix(in srgb, var(--bg-panel) 84%, transparent);
+  box-shadow: 0 20px 60px color-mix(in srgb, var(--shadow-overlay) 44%, transparent);
+}
+
+.editor-area__welcome-card--hero {
+  grid-row: span 2;
+}
+
+.editor-area__welcome-card h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.editor-area__welcome-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.editor-area__welcome-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--text-accent);
+  font-size: 12px;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.editor-area__welcome-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.editor-area__welcome-actions button,
+.editor-area__recent button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bg-editor) 82%, transparent);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.editor-area__welcome-actions button {
+  width: auto;
+  padding: 10px 14px;
+}
+
+.editor-area__section-heading {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.editor-area__recent {
+  display: grid;
+  gap: 10px;
+}
+
+.editor-area__recent button {
+  padding: 12px 16px;
+  font-family: 'Segoe UI', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+}
+
+.editor-area__recent button div {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+}
+
+.editor-area__recent button strong {
+  font-size: 14px;
+}
+
+.editor-area__recent button span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.editor-area__welcome-actions button:hover,
+.editor-area__welcome-actions button:focus-visible,
+.editor-area__recent button:hover,
+.editor-area__recent button:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border-color));
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.editor-area__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.editor-area__metric {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg-editor) 80%, transparent);
+}
+
+.editor-area__metric span {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.editor-area__metric strong {
+  font-size: 22px;
+}
+
+@media (max-width: 1320px) {
+  .editor-area__welcome-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-area__welcome-card--hero {
+    grid-row: auto;
+  }
+}

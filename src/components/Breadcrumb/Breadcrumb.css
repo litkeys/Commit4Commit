@@ -1,0 +1,32 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--bg-editor) 95%, transparent);
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.breadcrumb__segment,
+.breadcrumb__empty {
+  color: var(--text-muted);
+}
+
+.breadcrumb__segment {
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.breadcrumb__segment:hover,
+.breadcrumb__segment:focus-visible {
+  color: var(--text-primary);
+  outline: none;
+}
+
+.breadcrumb__separator {
+  color: var(--text-muted);
+}
