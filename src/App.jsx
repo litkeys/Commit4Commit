@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { Panel as ResizePanel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import ActivityBar from './components/ActivityBar/ActivityBar';
+import OrchestraChat from './components/OrchestraChat/OrchestraChat';
+import OrchestraDashboard from './components/OrchestraDashboard/OrchestraDashboard';
+import OrchestraTaskList from './components/OrchestraTaskList/OrchestraTaskList';
 import Sidebar from './components/Sidebar/Sidebar';
 import TabBar from './components/Tabs/TabBar';
 import Breadcrumb from './components/Breadcrumb/Breadcrumb';
@@ -12,7 +15,6 @@ import { EditorProvider, useEditorStore } from './state/useEditorStore';
 import './App.css';
 
 function Workspace() {
-  const sidebarPanelRef = useRef(null);
   const panelRef = useRef(null);
   const {
     state,
@@ -27,21 +29,6 @@ function Workspace() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', state.theme);
   }, [state.theme]);
-
-  useEffect(() => {
-    const panel = sidebarPanelRef.current;
-
-    if (!panel) {
-      return;
-    }
-
-    if (state.sidebarOpen) {
-      panel.expand();
-      return;
-    }
-
-    panel.collapse();
-  }, [state.sidebarOpen]);
 
   useEffect(() => {
     const panel = panelRef.current;
@@ -119,51 +106,63 @@ function Workspace() {
     toggleSidebar,
   ]);
 
+  const appClassName = [
+    'app',
+    state.sidebarOpen ? '' : 'app--sidebar-collapsed',
+    state.rightPanelOpen ? 'app--right-open' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div className="app-shell">
+    <div className={appClassName}>
       <ActivityBar />
-      <div className="app-shell__main">
-        <PanelGroup className="app-shell__horizontal-group" direction="horizontal">
-          <ResizePanel
-            ref={sidebarPanelRef}
-            className="app-shell__sidebar-panel"
-            defaultSize={18}
-            minSize={12}
-            maxSize={30}
-            collapsible
-            collapsedSize={0}
-          >
-            <Sidebar />
-          </ResizePanel>
-          <PanelResizeHandle
-            className={state.sidebarOpen ? 'resize-handle resize-handle--vertical' : 'resize-handle resize-handle--hidden'}
-          />
-          <ResizePanel className="app-shell__workspace-panel" minSize={40}>
-            <PanelGroup className="app-shell__vertical-group" direction="vertical">
-              <ResizePanel className="app-shell__editor-panel" defaultSize={76} minSize={25}>
-                <div className="workspace">
-                  <TabBar />
+
+      <div className="left-sidebar">
+        <Sidebar />
+      </div>
+
+      <div className="editor-column">
+        <TabBar />
+
+        <div className="editor-column__body">
+          <PanelGroup className="editor-column__panels" direction="vertical">
+            <ResizePanel className="editor-column__top-panel" defaultSize={76} minSize={25}>
+              {state.editorView === 'dashboard' ? (
+                <OrchestraDashboard />
+              ) : (
+                <div className="editor-workspace">
                   <Breadcrumb />
                   <EditorArea />
                 </div>
-              </ResizePanel>
-              <PanelResizeHandle
-                className={state.panelOpen ? 'resize-handle resize-handle--horizontal' : 'resize-handle resize-handle--hidden'}
-              />
-              <ResizePanel
-                ref={panelRef}
-                className="app-shell__bottom-panel"
-                defaultSize={24}
-                minSize={18}
-                collapsible
-                collapsedSize={0}
-              >
-                <Panel />
-              </ResizePanel>
-            </PanelGroup>
-          </ResizePanel>
-        </PanelGroup>
+              )}
+            </ResizePanel>
+
+            <PanelResizeHandle
+              className={state.panelOpen ? 'resize-handle resize-handle--horizontal' : 'resize-handle resize-handle--hidden'}
+            />
+
+            <ResizePanel
+              ref={panelRef}
+              className="editor-column__bottom-panel"
+              defaultSize={24}
+              minSize={18}
+              collapsible
+              collapsedSize={0}
+            >
+              <Panel />
+            </ResizePanel>
+          </PanelGroup>
+        </div>
       </div>
+
+      <aside className={state.rightPanelOpen ? 'right-panel right-panel--open' : 'right-panel'}>
+        <div className="right-panel__inner">
+          {state.rightPanelView === 'orchestra-chat' ? <OrchestraChat /> : null}
+          {state.rightPanelView === 'orchestra-tasks' ? <OrchestraTaskList /> : null}
+        </div>
+      </aside>
+
       <StatusBar />
       <CommandPalette />
     </div>

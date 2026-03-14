@@ -4,7 +4,7 @@
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 22%),
     var(--bg-activity);
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-subtle);
 }
 
 .activity-bar__brand {
@@ -18,7 +18,11 @@
   height: 18px;
   border-radius: 5px;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 80%, #4ec9b0), color-mix(in srgb, #4ec9b0 65%, transparent));
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 80%, #4ec9b0),
+      color-mix(in srgb, #4ec9b0 65%, transparent)
+    );
   box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 30%, transparent);
   transform: rotate(10deg);
 }
@@ -28,8 +32,55 @@
   align-content: start;
 }
 
+.activity-bar__orchestra-group {
+  display: grid;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #1f1f1f;
+}
+
 .activity-bar__section--bottom {
   padding-bottom: 6px;
+}
+
+.activity-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.activity-icon svg {
+  color: #6e6e6e;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.activity-icon.active svg {
+  color: #ffffff;
+}
+
+.activity-icon:hover svg {
+  color: #cccccc;
+}
+
+.activity-icon[data-id='orchestra-chat'] svg,
+.activity-icon[data-id='orchestra-dashboard'] svg,
+.activity-icon[data-id='orchestra-tasks'] svg {
+  color: #6e6e6e;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.activity-icon[data-id='orchestra-chat'].active svg,
+.activity-icon[data-id='orchestra-dashboard'].active svg,
+.activity-icon[data-id='orchestra-tasks'].active svg {
+  color: #ffffff;
 }
 
 .activity-bar__button {
@@ -39,8 +90,12 @@
   width: 48px;
   height: 48px;
   color: var(--text-muted);
-  transition: color 120ms ease, background 120ms ease;
+  transition: background 100ms ease, color 100ms ease;
   cursor: pointer;
+}
+
+.activity-bar__button--extension {
+  color: #333333;
 }
 
 .activity-bar__button::before {
@@ -55,7 +110,7 @@
 .activity-bar__button:hover,
 .activity-bar__button:focus-visible {
   color: var(--text-primary);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  background: var(--bg-hover);
   outline: none;
 }
 
@@ -67,6 +122,38 @@
   background: var(--accent);
 }
 
+.activity-bar__button--extension-active::before {
+  background: #7c3aed;
+}
+
+.activity-bar__button--extension-active {
+  color: #ffffff;
+}
+
+.activity-bar__orchestra-mark {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  font-size: 5px;
+  line-height: 1;
+  color: #7c3aed;
+}
+
+.activity-bar__task-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 8px;
+  min-width: 14px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+
 .activity-bar__badge {
   position: absolute;
   top: 8px;
@@ -76,7 +163,7 @@
   border-radius: 999px;
   background: var(--accent);
   color: #ffffff;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   line-height: 16px;
   text-align: center;

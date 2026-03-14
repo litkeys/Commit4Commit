@@ -1,4 +1,11 @@
-import { Command, FileCode2, Sidebar as SidebarIcon, Terminal } from 'lucide-react';
+import {
+  Command,
+  FileCode2,
+  LayoutDashboard,
+  MessageSquare,
+  Sidebar as SidebarIcon,
+  Terminal,
+} from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '../../state/useEditorStore';
 import './CommandPalette.css';
@@ -10,8 +17,8 @@ export default function CommandPalette() {
   const {
     state,
     closeCommandPalette,
+    dispatch,
     openFileByPath,
-    setTheme,
     togglePanel,
     toggleSidebar,
   } = useEditorStore();
@@ -42,16 +49,20 @@ export default function CommandPalette() {
       action: toggleSidebar,
     },
     {
-      id: 'theme-dark',
-      label: 'Change Theme: Dark+',
-      icon: Command,
-      action: () => setTheme('dark'),
+      id: 'open-chat',
+      label: 'Toggle Orchestra Chat',
+      icon: MessageSquare,
+      action: () => dispatch({ type: 'TOGGLE_RIGHT_PANEL' }),
     },
     {
-      id: 'theme-light',
-      label: 'Change Theme: Light',
-      icon: Command,
-      action: () => setTheme('light'),
+      id: 'open-dashboard',
+      label: 'Toggle Orchestra Dashboard',
+      icon: LayoutDashboard,
+      action: () =>
+        dispatch({
+          type: 'SET_EDITOR_VIEW',
+          payload: state.editorView === 'dashboard' ? 'monaco' : 'dashboard',
+        }),
     },
     {
       id: 'format-document',

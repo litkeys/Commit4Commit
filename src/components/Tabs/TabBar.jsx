@@ -20,11 +20,29 @@ export default function TabBar() {
     }
   }, [renamingTabId]);
 
+  const dashboardActive = state.editorView === 'dashboard';
+
   return (
     <header className="tab-bar">
       <div className="tab-bar__tabs" role="tablist" aria-label="Open files">
+        {dashboardActive ? (
+          <div
+            className="tab-bar__tab tab-bar__tab--active tab-bar__tab--orchestra"
+            role="tab"
+            aria-selected="true"
+            tabIndex={0}
+          >
+            <span className="tab-bar__tab-content">
+              <span className="tab-bar__orchestra-mark" aria-hidden="true">
+                ✳
+              </span>
+              <span className="tab-bar__label">Orchestra Dashboard</span>
+            </span>
+          </div>
+        ) : null}
+
         {state.openTabs.map((tab) => {
-          const isActive = activeTab?.id === tab.id;
+          const isActive = !dashboardActive && activeTab?.id === tab.id;
           const isRenaming = renamingTabId === tab.id;
 
           return (
@@ -61,7 +79,9 @@ export default function TabBar() {
                   }}
                 />
               ) : (
-                <span className="tab-bar__label">{tab.name}</span>
+                <span className="tab-bar__tab-content">
+                  <span className="tab-bar__label">{tab.name}</span>
+                </span>
               )}
 
               {tab.isDirty ? (

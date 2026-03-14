@@ -31,6 +31,13 @@
   animation: tab-open 100ms ease;
 }
 
+.tab-bar__tab-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
 .tab-bar__tab:hover,
 .tab-bar__tab:focus-visible {
   color: var(--text-primary);
@@ -43,11 +50,21 @@
   color: var(--text-primary);
 }
 
+.tab-bar__tab--orchestra {
+  width: 220px;
+  min-width: 220px;
+}
+
 .tab-bar__label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px;
+}
+
+.tab-bar__orchestra-mark {
+  color: #7c3aed;
+  font-size: 12px;
 }
 
 .tab-bar__close,

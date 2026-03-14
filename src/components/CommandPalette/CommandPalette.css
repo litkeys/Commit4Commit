@@ -14,9 +14,7 @@
   width: min(640px, calc(100vw - 40px));
   overflow: hidden;
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--bg-editor) 96%, transparent);
-  box-shadow: 0 24px 60px var(--shadow-overlay);
+  background: color-mix(in srgb, var(--bg-root) 96%, transparent);
 }
 
 .command-palette__input-row {
@@ -27,6 +25,7 @@
   padding: 14px 16px;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-muted);
+  font-size: 13px;
 }
 
 .command-palette__input {
@@ -55,20 +54,19 @@
   gap: 10px;
   align-items: center;
   padding: 12px;
-  border-radius: 10px;
   color: var(--text-primary);
   text-align: left;
 }
 
 .command-palette__item {
   cursor: pointer;
-  transition: background 120ms ease;
+  transition: background 100ms ease;
 }
 
 .command-palette__item:hover,
 .command-palette__item:focus-visible,
 .command-palette__item--selected {
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  background: var(--bg-hover);
   outline: none;
 }
 

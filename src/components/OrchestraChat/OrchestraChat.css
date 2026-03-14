@@ -1,0 +1,503 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap');
+
+.orchestra-root.orchestra-chat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.orchestra-root.orchestra-chat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.015;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.04) 2px,
+    rgba(255, 255, 255, 0.04) 4px
+  );
+}
+
+.orchestra-root.orchestra-chat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px;
+}
+
+.orchestra-root .orch-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  background: #0d0d0d;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.orchestra-root .orch-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.orchestra-root .orch-asterisk {
+  color: #7c3aed;
+  font-size: 14px;
+}
+
+.orchestra-root .orch-name-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+}
+
+.orchestra-root .orch-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.orchestra-root .orch-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #444;
+  cursor: pointer;
+}
+
+.orchestra-root .orch-header-icon:hover,
+.orchestra-root .orch-header-icon:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.orchestra-root .orch-context-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 12px;
+  background: #080808;
+  border-bottom: 1px solid #111;
+  color: #333;
+}
+
+.orchestra-root .orch-context-file {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #555;
+}
+
+.orchestra-root .orch-context-range {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #333;
+}
+
+.orchestra-root .orch-messages {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  background: #000;
+}
+
+.orchestra-root .orch-messages-scroll {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding: 14px 12px;
+  overflow-y: auto;
+}
+
+.orchestra-root .orch-messages-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #1a1a1a #000;
+}
+
+.orchestra-root .orch-messages-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.orchestra-root .orch-messages-scroll::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.orchestra-root .orch-messages-scroll::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+}
+
+.orchestra-root .orch-msg-user,
+.orchestra-root .orch-msg-agent {
+  position: relative;
+  z-index: 1;
+  animation: orch-msg-in 150ms ease forwards;
+}
+
+.orchestra-root .orch-msg-user {
+  text-align: right;
+}
+
+.orchestra-root .orch-msg-label-user {
+  display: block;
+  margin-bottom: 3px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #333;
+}
+
+.orchestra-root .orch-msg-label-time {
+  color: #222;
+  margin-left: 6px;
+}
+
+.orchestra-root .orch-msg-text-user {
+  margin: 0;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.5;
+}
+
+.orchestra-root .orch-msg-ref {
+  display: block;
+  margin-top: 3px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #333;
+}
+
+.orchestra-root .orch-msg-agent {
+  text-align: left;
+}
+
+.orchestra-root .orch-msg-label-agent {
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #7c3aed;
+}
+
+.orchestra-root .orch-msg-bubble {
+  min-width: 0;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-left: 2px solid #7c3aed;
+  padding: 10px 12px;
+}
+
+.orchestra-root .orch-msg-blocks {
+  min-width: 0;
+}
+
+.orchestra-root .orch-msg-text {
+  margin: 0 0 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.orchestra-root .orch-msg-bullets {
+  margin: 0 0 8px;
+  padding-left: 14px;
+}
+
+.orchestra-root .orch-msg-bullets li {
+  margin-bottom: 4px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.orchestra-root .orch-code-block {
+  background: #000;
+  border: 1px solid #1a1a1a;
+  margin-top: 8px;
+}
+
+.orchestra-root .orch-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 10px;
+  border-bottom: 1px solid #111;
+}
+
+.orchestra-root .orch-code-lang {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: #333;
+}
+
+.orchestra-root .orch-code-copy {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: #333;
+  cursor: pointer;
+}
+
+.orchestra-root .orch-code-copy:hover,
+.orchestra-root .orch-code-copy:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.orchestra-root .orch-code-pre {
+  margin: 0;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.orchestra-root .orch-code-pre code {
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #ccc;
+  white-space: pre;
+}
+
+.orchestra-root .orch-action-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.orchestra-root .orch-action-btn {
+  padding: 4px 10px;
+  border: 1px solid #1a1a1a;
+  background: #000;
+  color: #555;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  cursor: pointer;
+  transition: color 100ms ease, background 100ms ease;
+}
+
+.orchestra-root .orch-action-btn:hover,
+.orchestra-root .orch-action-btn:focus-visible {
+  color: #fff;
+  background: #111;
+  border-color: #2a2a2a;
+  outline: none;
+}
+
+.orchestra-root .orch-action-btn.applied {
+  color: #059669;
+  border-color: #059669;
+  pointer-events: none;
+}
+
+.orchestra-root .orch-msg-error-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  padding: 2px 6px;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.orchestra-root .orch-typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.orchestra-root .orch-typing span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7c3aed;
+  opacity: 0;
+  animation: orch-dot 1.2s infinite ease-in-out;
+}
+
+.orchestra-root .orch-typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.orchestra-root .orch-typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.orchestra-root .orch-quick-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 5px;
+  padding: 0 12px;
+  align-items: center;
+  height: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: #000;
+  border-top: 1px solid #111;
+}
+
+.orchestra-root .orch-quick-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.orchestra-root .orch-quick-chip {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border: 1px solid #1a1a1a;
+  background: #000;
+  color: #444;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 100ms ease, border-color 100ms ease;
+}
+
+.orchestra-root .orch-quick-chip:hover,
+.orchestra-root .orch-quick-chip:focus-visible {
+  color: #fff;
+  border-color: #333;
+  outline: none;
+}
+
+.orchestra-root .orch-input-area {
+  position: relative;
+  z-index: 1;
+  background: #000;
+  border-top: 1px solid #1a1a1a;
+  padding: 10px 12px;
+}
+
+.orchestra-root .orch-textarea {
+  width: 100%;
+  background: #000;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.orchestra-root .orch-textarea::placeholder {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #333;
+}
+
+.orchestra-root .orch-textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.orchestra-root .orch-input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.orchestra-root .orch-input-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orchestra-root .orch-icon-btn {
+  color: #333;
+  cursor: pointer;
+}
+
+.orchestra-root .orch-icon-btn:hover,
+.orchestra-root .orch-icon-btn:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.orchestra-root .orch-send-btn {
+  padding: 4px 10px;
+  border: 1px solid #7c3aed;
+  background: #000;
+  color: #7c3aed;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+}
+
+.orchestra-root .orch-send-btn:hover,
+.orchestra-root .orch-send-btn:focus-visible {
+  background: #7c3aed;
+  color: #fff;
+  outline: none;
+}
+
+.orchestra-root .orch-send-btn.orch-send-loading {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.orchestra-root .orch-send-btn:disabled {
+  pointer-events: none;
+}
+
+@keyframes orch-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes orch-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

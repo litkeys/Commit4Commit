@@ -66,11 +66,9 @@
   gap: 14px;
   padding: 18px;
   border: 1px solid var(--border-color);
-  border-radius: 18px;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 48%),
     color-mix(in srgb, var(--bg-panel) 84%, transparent);
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--shadow-overlay) 44%, transparent);
 }
 
 .editor-area__welcome-card--hero {
@@ -93,7 +91,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 10px;
-  border-radius: 999px;
+  border: 1px solid var(--border-color);
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--text-accent);
   font-size: 12px;
@@ -115,11 +113,10 @@
   gap: 12px;
   width: 100%;
   border: 1px solid var(--border-color);
-  border-radius: 10px;
   background: color-mix(in srgb, var(--bg-editor) 82%, transparent);
   color: var(--text-primary);
   cursor: pointer;
-  transition: border-color 120ms ease, transform 120ms ease;
+  transition: background 100ms ease, border-color 100ms ease;
 }
 
 .editor-area__welcome-actions button {
@@ -165,7 +162,7 @@
 .editor-area__recent button:hover,
 .editor-area__recent button:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 50%, var(--border-color));
-  transform: translateY(-1px);
+  background: var(--bg-hover);
   outline: none;
 }
 
@@ -179,7 +176,7 @@
   display: grid;
   gap: 6px;
   padding: 12px;
-  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
   background: color-mix(in srgb, var(--bg-editor) 80%, transparent);
 }
 

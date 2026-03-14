@@ -8,6 +8,7 @@ import {
   FolderOpen,
 } from 'lucide-react';
 import { useEditorStore } from '../../state/useEditorStore';
+import './FileTree.css';
 
 function getFileIcon(node) {
   if (node.type === 'folder') {
@@ -115,50 +116,67 @@ export default function FileTree() {
 
   return (
     <div className="file-tree">
-      <div className="file-tree__section-title">Open Editors</div>
-      {state.openTabs.length ? (
-        <ul className="file-tree__open-editors">
-          {state.openTabs.map((tab) => (
-            <li key={tab.id}>
-              <div
-                className={activeTab?.id === tab.id ? 'file-tree__open-editor file-tree__open-editor--active' : 'file-tree__open-editor'}
-              >
-                <button className="file-tree__open-editor-main" type="button" onClick={() => setActiveTab(tab.id)}>
-                  <span>{tab.name}</span>
-                </button>
-                <span className="file-tree__open-editor-actions">
-                  {tab.isDirty ? <span className="file-tree__dirty-indicator">●</span> : null}
+      <section className="file-tree__section">
+        <div className="file-tree__section-title">Open Editors</div>
+        {state.openTabs.length ? (
+          <ul className="file-tree__open-editors">
+            {state.openTabs.map((tab) => (
+              <li key={tab.id}>
+                <div
+                  className={
+                    activeTab?.id === tab.id
+                      ? 'file-tree__open-editor file-tree__open-editor--active'
+                      : 'file-tree__open-editor'
+                  }
+                >
                   <button
-                    className="file-tree__close-open-editor"
+                    className="file-tree__open-editor-main"
                     type="button"
-                    aria-label={`Close ${tab.name}`}
-                    onClick={() => closeTab(tab.id)}
+                    onClick={() => setActiveTab(tab.id)}
                   >
-                    ×
+                    <span>{tab.name}</span>
                   </button>
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="file-tree__active-file">No file selected</div>
-      )}
+                  <span className="file-tree__open-editor-actions">
+                    {tab.isDirty ? <span className="file-tree__dirty-indicator">●</span> : null}
+                    <button
+                      className="file-tree__close-open-editor"
+                      type="button"
+                      aria-label={`Close ${tab.name}`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        closeTab(tab.id);
+                      }}
+                    >
+                      ×
+                    </button>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="file-tree__active-file">No file selected</div>
+        )}
+      </section>
 
-      <div className="file-tree__section-title">Project</div>
-      <ul className="file-tree__list">
-        {state.fileTree.map((node) => (
-          <TreeNode
-            key={node.id}
-            activePath={activeTab?.path}
-            depth={0}
-            node={node}
-            onContextMenu={(event, fileNode) =>
-              setContextMenu({ x: event.clientX, y: event.clientY, fileNode })
-            }
-          />
-        ))}
-      </ul>
+      <section className="file-tree__section file-tree__section--grow">
+        <div className="file-tree__section-title">Project</div>
+        <div className="file-tree__scroll">
+          <ul className="file-tree__list">
+            {state.fileTree.map((node) => (
+              <TreeNode
+                key={node.id}
+                activePath={activeTab?.path}
+                depth={0}
+                node={node}
+                onContextMenu={(event, fileNode) =>
+                  setContextMenu({ x: event.clientX, y: event.clientY, fileNode })
+                }
+              />
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {contextMenu && (
         <div className="file-tree__context-menu" role="menu">
