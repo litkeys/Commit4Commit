@@ -70,10 +70,6 @@ export default function ActivityBar() {
 
   return (
     <aside className="activity-bar">
-      <div className="activity-bar__brand" aria-hidden="true">
-        <span className="activity-bar__brand-mark" />
-      </div>
-
       <div className="activity-bar__section">
         {coreItems.map((item) => {
           const Icon = item.icon;

@@ -1,8 +1,6 @@
 import Editor, { useMonaco } from '@monaco-editor/react';
-import { ArrowRight, Command, FolderOpenDot, Sparkles } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useEditorStore } from '../../state/useEditorStore';
-import { recentFiles, welcomeMetrics, workspaceSummary } from '../../data/demoData';
 import { detectLanguage } from '../../utils/languageDetect';
 import './EditorArea.css';
 
@@ -20,21 +18,13 @@ function LoadingSkeleton() {
   );
 }
 
-function WelcomeLogo() {
-  return (
-    <svg
-      className="editor-area__welcome-logo"
-      viewBox="0 0 256 256"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M181.6 20.5 66.1 73.4v109.2l115.5 52.9 46.9-19.2V39.7z" />
-      <path d="m181.6 20.5-115.5 52.9 60.8 54.6 54.7-48.2z" />
-      <path d="m181.6 235.5-115.5-52.9 60.8-54.6 54.7 48.2z" />
-      <path d="M66.1 73.4 20.5 53.8v148.4l45.6-19.6z" />
-    </svg>
-  );
-}
+const recentFiles = [
+  { name: 'App.jsx', path: 'src/App.jsx', language: 'javascript' },
+  { name: 'useAuth.js', path: 'src/hooks/useAuth.js', language: 'javascript' },
+  { name: 'App.css', path: 'src/App.css', language: 'css' },
+  { name: 'helpers.js', path: 'src/utils/helpers.js', language: 'javascript' },
+  { name: 'package.json', path: 'package.json', language: 'json' },
+];
 
 export default function EditorArea() {
   const editorRef = useRef(null);
@@ -42,7 +32,8 @@ export default function EditorArea() {
   const {
     state,
     activeTab,
-    openFileByPath,
+    openCommandPalette,
+    openFile,
     setCursorPosition,
     updateFileContent,
   } = useEditorStore();
@@ -68,61 +59,64 @@ export default function EditorArea() {
     return (
       <section className="editor-area editor-area--welcome">
         <div className="editor-area__welcome">
-          <WelcomeLogo />
-          <div className="editor-area__welcome-copy">
-            <span className="editor-area__welcome-label">Visual Studio Code</span>
-            <h1>VS Code Clone</h1>
-            <p>
-              Explore a polished demo workspace with Monaco, quick actions, and realistic static project data.
-            </p>
+          <img src="/vscode-logo.png" alt="VS Code" className="welcome-logo" />
+
+          <p className="welcome-eyebrow">VISUAL STUDIO CODE</p>
+          <h1 className="welcome-title">Welcome</h1>
+
+          <p className="welcome-section-label">Recent</p>
+          <div className="welcome-recent-list">
+            {recentFiles.map((file) => (
+              <div
+                key={file.path}
+                className="welcome-recent-item"
+                onClick={() =>
+                  openFile({
+                    id: file.path,
+                    name: file.name,
+                    path: file.path,
+                    type: 'file',
+                    language: file.language,
+                  })
+                }
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openFile({
+                      id: file.path,
+                      name: file.name,
+                      path: file.path,
+                      type: 'file',
+                      language: file.language,
+                    });
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                <span className="welcome-recent-name">{file.name}</span>
+                <span className="welcome-recent-path">{file.path}</span>
+              </div>
+            ))}
           </div>
 
-          <div className="editor-area__welcome-grid">
-            <section className="editor-area__welcome-card editor-area__welcome-card--hero">
-              <div className="editor-area__welcome-chip">
-                <Sparkles size={14} />
-                {workspaceSummary.projectName}
-              </div>
-              <h2>Continue where you left off</h2>
-              <p>Open recent files, explore the sidebar views, or hit the command palette to steer the shell.</p>
-              <div className="editor-area__welcome-actions">
-                <button type="button" onClick={() => openFileByPath('src/App.jsx')}>
-                  <FolderOpenDot size={15} />
-                  Open Explorer
-                </button>
-                <button type="button" onClick={() => openFileByPath('User/settings.json')}>
-                  <Command size={15} />
-                  Open Settings
-                </button>
-              </div>
-            </section>
-
-            <section className="editor-area__welcome-card">
-              <div className="editor-area__section-heading">Recent files</div>
-              <div className="editor-area__recent">
-                {recentFiles.map((file) => (
-                  <button key={file.id} type="button" onClick={() => openFileByPath(file.path)}>
-                    <div>
-                      <strong>{file.title}</strong>
-                      <span>{file.subtitle}</span>
-                    </div>
-                    <ArrowRight size={15} />
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section className="editor-area__welcome-card">
-              <div className="editor-area__section-heading">Workspace metrics</div>
-              <div className="editor-area__metrics">
-                {welcomeMetrics.map((metric) => (
-                  <article key={metric.id} className="editor-area__metric">
-                    <span>{metric.label}</span>
-                    <strong>{metric.value}</strong>
-                  </article>
-                ))}
-              </div>
-            </section>
+          <div className="welcome-links">
+            <span
+              className="welcome-link"
+              onClick={openCommandPalette}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openCommandPalette();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              ⌘ Command Palette
+            </span>
+            <span className="welcome-link">New File</span>
+            <span className="welcome-link">Open Folder</span>
           </div>
         </div>
       </section>
